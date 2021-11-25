@@ -1,0 +1,128 @@
+<div class="section_5">
+    <div class="container text-center">
+        <div [innerHTML]="soWhatnext.other_description"></div>
+        <a [routerLink]="['/get-a-quote']" class="btn_learn">{{ 'btn_get_a_quote' | translate }}</a>
+    </div>
+</div>
+<div class="section_6">
+    <div class="container">
+        <div class="row justify-content-between">
+            <div class="col-xl-6 col-lg-6">
+                <div [innerHTML]="footerDetails.address"></div>
+                <div class="social_holder" *ngIf="footerDetails.facebook_link != '' || footerDetails.twitter_link != '' || footerDetails.linkedin_link != ''">
+                    <h4>{{ 'menu_we_are_social' | translate }}</h4>
+                    <ul>
+                        <li *ngIf="footerDetails.facebook_link">
+                            <a href="{{footerDetails.facebook_link}}" target="_blank"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li *ngIf="footerDetails.twitter_link">
+                            <a href="{{footerDetails.twitter_link}}" target="_blank"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li *ngIf="footerDetails.linkedin_link">
+                            <a href="{{footerDetails.linkedin_link}}" target="_blank"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-xl-5 col-lg-6">
+                <div class="form_holder">
+                    <form [formGroup]="enquiryForm" (ngSubmit)="submitEnquiryForm();" autocomplete="off">
+                        <input type="text" formControlName="name" class="form-control" placeholder="{{ 'placeholder_name' | translate }}" [ngClass]="{'is-invalid': submitted && enquiryFormVal.name.errors}">
+                        <div *ngIf="submitted && enquiryFormVal.name.errors" class="invalid-feedback">
+                            <div *ngIf="enquiryFormVal.name.errors.required">
+                                {{ 'error_name' | translate }}
+                            </div>
+                        </div>
+                        <input type="text" formControlName="phone_number" class="form-control" placeholder="{{ 'placeholder_phone' | translate }}" [ngClass]="{'is-invalid': submitted && enquiryFormVal.phone_number.errors}">
+                        <div *ngIf="submitted && enquiryFormVal.phone_number.errors" class="invalid-feedback">
+                            <div *ngIf="enquiryFormVal.phone_number.errors.required">
+                                {{ 'error_phone' | translate }}
+                            </div>
+                        </div>
+                        <input type="email" formControlName="email" class="form-control" placeholder="{{ 'placeholder_email' | translate }}" [ngClass]="{'is-invalid': submitted && enquiryFormVal.email.errors}">
+                        <div *ngIf="submitted && enquiryFormVal.email.errors" class="invalid-feedback">
+                            <div *ngIf="enquiryFormVal.email.errors?.required; else validEmail">
+                                {{ 'error_email' | translate }}
+                            </div>
+                            <ng-template #validEmail>
+                                {{ 'error_email_valid' | translate }}
+                            </ng-template>
+                        </div>
+                        <textarea formControlName="message" class="form-control" placeholder="{{ 'placeholder_project' | translate }}" [ngClass]="{'is-invalid': submitted && enquiryFormVal.message.errors}"></textarea>
+                        <div *ngIf="submitted && enquiryFormVal.message.errors" class="invalid-feedback">
+                            <div *ngIf="enquiryFormVal.message.errors.required">
+                                {{ 'error_project' | translate }}
+                            </div>
+                        </div>
+                        <input type="submit" value="">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="footer_top">
+            <div class="foot_box_1" *ngIf="footerLogo">
+                <div class="footer_logo">
+                    <a [routerLink]="['/']"><img src="{{this.footerLogo}}" alt=""></a>
+                </div>
+            </div>
+            <div class="foot_box_2">
+                <h2>{{ 'menu_navigate' | translate }}</h2>
+                <ul>
+                    <li><a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{ 'menu_home' | translate }}</a></li> 
+                    <li class="sub_menu"><a [routerLink]="['/services']" routerLinkActive="active">{{ 'menu_services' | translate }}</a>
+                    <li><a [routerLink]="['/portfolio']" routerLinkActive="active">{{ 'menu_portfolio' | translate }}</a></li>             
+                    <li><a [routerLink]="['/testimonials']" routerLinkActive="active">{{ 'menu_testimonials' | translate }}</a></li>
+                </ul>
+            </div>
+            <div class="foot_box_3">
+                <h2>{{ 'menu_take_action' | translate }}</h2>
+                <ul>
+                    <li><a [routerLink]="['/get-a-quote']">{{ 'btn_get_a_quote' | translate }}</a></li>
+                    <li><a [routerLink]="['/contact']" routerLinkActive="active">{{ 'menu_footer_contact' | translate }}</a></li>
+                </ul>
+            </div>
+            <ng-container *ngIf="serviceList.length > 0;then service_list_exist"></ng-container>
+            <ng-template #service_list_exist>
+                <div class="foot_box_4">
+                    <h2>{{ 'menu_services' | translate }}</h2>
+                    <ul>
+                        <ng-container *ngIf="currentRouterName == 'services'; then serviceBlock else serviceOtherBlock"></ng-container>
+                        <ng-template #serviceBlock>
+                            <li *ngFor="let service of serviceList;">
+                                <a (click)="scrollToOwnElement('service_'+service.id)" href="javascript: void(0);" [innerHTML]="service.title"></a>
+                            </li>
+                        </ng-template>
+                        <ng-template #serviceOtherBlock>
+                            <li *ngFor="let service of serviceList;">
+                                <a [routerLink]="['/services']" [queryParams]="{block: 'service_'+service.id}" [innerHTML]="service.title"></a>
+                            </li>
+                        </ng-template>
+                    </ul>
+                </div>
+            </ng-template>
+            <div class="foot_box_5" *ngIf="footerDetails.facebook_link != '' || footerDetails.twitter_link != '' || footerDetails.linkedin_link != ''">
+                <h2>{{ 'menu_we_are_social' | translate }}</h2>
+                <ul>
+                    <li *ngIf="footerDetails.facebook_link">
+                        <a href="{{footerDetails.facebook_link}}" target="_blank"><span class="facebook"><i class="fa fa-facebook"></i></span>{{ 'label_facebook' | translate }}</a>
+                    </li>
+                    <li *ngIf="footerDetails.twitter_link">
+                        <a href="{{footerDetails.twitter_link}}" target="_blank"><span class="twitter"><i class="fa fa-twitter"></i></span>{{ 'label_twitter' | translate }}</a>
+                    </li>
+                    <li *ngIf="footerDetails.linkedin_link">
+                        <a href="{{footerDetails.linkedin_link}}" target="_blank"><span class="linkedin"><i class="fa fa-linkedin"></i></span>{{ 'label_linkedin' | translate }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer_bottom">
+        <div class="container">
+            <p><small class="copyright-text" [innerHTML]="footerDetails.copyright_text"></small> &nbsp;<a [routerLink]="['/privacy']">{{ 'menu_privacy' | translate }}</a>. <a [routerLink]="['/site-map']">{{ 'menu_site_map' | translate }}</a>. <a [routerLink]="['/terms']">{{ 'menu_terms' | translate }}</a></p>
+        </div>
+    </div>
+</footer>

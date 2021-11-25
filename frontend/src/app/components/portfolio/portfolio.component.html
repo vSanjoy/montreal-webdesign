@@ -1,0 +1,118 @@
+<app-header></app-header>
+	<div class="inner_banner" [ngStyle]="{'background-image': pageDetails.banner_image ? 'url(' + pageDetails.banner_image + ')' : '' }">
+		<div class="container text-center">
+			<div class="page_breadcrumb">
+				<!-- <app-breadcrumb></app-breadcrumb> -->
+				<div class="breadcrumb">
+					<ul>
+						<li class="active"><a [routerLink]="['/']">{{ 'menu_home' | translate }}</a></li>
+						<li><a [routerLink]="['/portfolio']">{{ pageDetails.title }}</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="pageTitle">
+				<h1 [innerHTML]="pageDetails.banner_title"></h1>
+			</div>
+			<div class="bannerContent">
+				<p [innerHTML]="pageDetails.banner_short_description"></p>
+			</div>
+		</div>
+	</div>
+	<div class="innerpageHolder">
+		<div class="container">
+			<div class="portfolio_tab_holder">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item" role="presentation">
+						<button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#all" type="button" role="tab" aria-controls="all" aria-selected="true" (click)="openAllPortfolioTab()"> {{ 'label_all_works' | translate }} </button>
+					</li>
+					<!-- Start :: Category Loop -->
+					<li class="nav-item" role="presentation" *ngFor="let itemCategory of portfolioCategories; let i = index;">
+						<button class="nav-link" id="profile-tab-{{itemCategory.id}}" data-bs-toggle="tab" [attr.data-bs-target]="'#tab' + itemCategory.id" type="button" role="tab"  [attr.aria-controls]="'#tab' + itemCategory.id" aria-selected="false" (click)="openPortfolioTab(itemCategory.id)">{{ itemCategory.title }}</button>
+					</li>
+					<!-- End :: Category Loop -->
+				</ul>
+
+				<div class="tab-content" id="myTabContent">
+					<!-- Start :: All Works -->
+					<div [ngClass]="allWork ? 'tab-pane fade show active' : 'tab-pane fade'" id="all" role="tabpanel" aria-labelledby="all-tab">
+						<div id="port_all" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false" *ngIf="allPortfolios.length != 0;else all_no_records_found">
+							<!-- Start :: Portfolio box -->
+							<div class="carousel-inner">
+								<ng-container *ngFor="let allPortfolio of allPortfolios; let allPort = index">
+									<div [ngClass]="allPort == 0 ? 'carousel-item active' : 'carousel-item'">
+										<div class="row">
+											<div class="col-lg-4 col-md-6" *ngFor="let portfolio of allPortfolio">
+												<div class="port_slider_inner">
+												<img src="{{ portfolioImageSource + portfolio.image }}" alt="{{ portfolio.title }}">
+												<div class="banner_caption">
+													<h3 [innerHTML]="portfolio.title"></h3>
+													<p>{{ 'label_role' | translate }}: <span [innerHTML]="portfolio.roles"></span></p>
+													<a href="{{ portfolio.site_link }}" target="_blank">{{ 'label_view_project' | translate }}</a>
+												</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</ng-container>
+							</div>
+							<!-- End :: Portfolio box -->
+							<!-- Start Portfolio Pagination -->
+							<div class="carousel-indicators" *ngIf="allPortfolios.length > 1">
+								<ng-container *ngFor="let allPortfolio of allPortfolios; let allPortPageCounter = index">
+									<button type="button" [attr.data-bs-target]="'#port_all'" [attr.data-bs-slide-to]="allPortPageCounter" [ngClass]="allPortPageCounter == 0 ? 'active' : ''" [attr.aria-current]="allPortPageCounter == 0 ? true : ''">{{ allPortPageCounter + 1 }}</button>
+								</ng-container>
+								<button class="carousel-control-next" type="button" data-bs-target="#port_all" data-bs-slide="next">
+									<i class="fa fa-angle-double-right" aria-hidden="true"></i> {{ 'label_previous' | translate }}
+									<span class="visually-hidden">{{ 'label_next' | translate }}</span>
+								</button>
+							</div>
+							<!-- End :: Portfolio pagination -->
+						</div>
+						<ng-template #all_no_records_found><span class="text-center">{{ noRecordsMessage }}</span></ng-template>
+					</div>
+					<!-- End :: All Works -->
+
+					<!-- Start :: Rest Categories -->
+					<div [ngClass]="otherCategory ? 'tab-pane fade show active' : 'tab-pane fade'" id="tab{{categoryDetails.id}}" role="tabpanel" aria-labelledby="cat-tab">
+						<div id="port_cat" class="carousel slide" data-bs-ride="carousel" data-bs-interval="false" *ngIf="categoryPortfolios.length != 0; else cat_no_records_found">
+							<!-- Start :: Portfolio box -->
+							<div class="carousel-inner">
+								<ng-container *ngFor="let catPortfolio of categoryPortfolios; let catPort = index">
+									<div [ngClass]="catPort == 0 ? 'carousel-item active' : 'carousel-item'">
+										<div class="row">
+											<div class="col-lg-4 col-md-6" *ngFor="let portfolio of catPortfolio">
+												<div class="port_slider_inner">
+												<img src="{{ portfolioImageSource + portfolio.image }}" alt="{{ portfolio.title }}">
+												<div class="banner_caption">
+													<h3 [innerHTML]="portfolio.title"></h3>
+													<p>{{ 'label_role' | translate }}: <span [innerHTML]="portfolio.roles"></span></p>
+													<a href="{{ portfolio.site_link }}" target="_blank">{{ 'label_view_project' | translate }}</a>
+												</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</ng-container>
+							</div>
+							<!-- End :: Portfolio box -->
+							<!-- Start Portfolio Pagination -->
+							<div class="carousel-indicators" *ngIf="categoryPortfolios.length > 1">
+								<ng-container *ngFor="let catPortfolio of categoryPortfolios; let catPortPageCounter = index">
+									<button type="button" [attr.data-bs-target]="'#port_cat'" [attr.data-bs-slide-to]="catPortPageCounter" [ngClass]="catPortPageCounter == 0 ? 'active' : ''" [attr.aria-current]="catPortPageCounter == 0 ? true : ''">{{ catPortPageCounter + 1 }}</button>
+								</ng-container>
+								<button class="carousel-control-next" type="button" data-bs-target="#port_cat" data-bs-slide="next">
+									<i class="fa fa-angle-double-right" aria-hidden="true"></i> {{ 'label_previous' | translate }}
+									<span class="visually-hidden">{{ 'label_next' | translate }}</span>
+								</button>
+							</div>
+							<!-- End :: Portfolio pagination -->
+						</div>
+						<ng-template #cat_no_records_found><span class="text-center">{{ noRecordsMessage }}</span></ng-template>
+					</div>
+					<!-- End :: Rest Categories -->				
+					
+				</div>
+			</div>
+		</div>
+	</div>
+<app-footer></app-footer>

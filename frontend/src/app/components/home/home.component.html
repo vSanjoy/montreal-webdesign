@@ -1,0 +1,90 @@
+<app-header></app-header>
+    <section class="section">
+        <div class="banner">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 order-lg-2" *ngIf="homeDetails.banner_image">
+                        <div class="banner_img">
+                            <img src="{{homeDetails.banner_image}}" alt="">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="banner_content">
+                            <h1 *ngIf="homeDetails.banner_short_description" [innerHTML]="homeDetails.banner_short_description"></h1>
+                            <div class="banner_button_holder">
+                                <ul>
+                                    <li><a [routerLink]="['/services']" class="btn_learn">{{ 'btn_learn_more' | translate }}</a></li>
+                                    <li><a [routerLink]="['/get-a-quote']" class="btn_request">{{ 'btn_request_a_quote' | translate }}</a></li>
+                                </ul>
+                            </div>
+                            <h2>{{ 'label_call_us' | translate }} <i class="fa fa-mobile" aria-hidden="true"></i> <a href="tel:{{ websiteSettingsDetails.phone_number }}">{{ websiteSettingsDetails.phone_no }}</a></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="section_2">
+        <div class="container">
+            <div class="text-center" [innerHTML]="homeDetails.description"></div>
+            <div class="approch_box_holder">
+                <div class="row">
+                    <div class="col-lg-4 approch" *ngFor="let service of serviceWidgets;">
+                        <div class="approch_box">
+                            <a [routerLink]="['/services']" [queryParams]="{block: 'service_'+service.id}">
+                                <h4 [innerHTML]="service.short_title"></h4>
+                                <div class="approch_icon">
+                                    <img src="{{service.image}}" alt="">
+                                </div>
+                                <p [innerHTML]="service.short_description"></p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section_3">
+        <div class="container">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-xl-6 col-lg-6 order-lg-2" *ngIf="aboutDetails.featured_image">
+                    <img src="{{aboutDetails.featured_image}}" alt="">
+                </div>
+                <div class="col-xl-5 col-lg-6">
+                    <h2 [innerHTML]="aboutDetails.title"></h2>
+                    <div [innerHTML]="aboutDetails.description"></div>
+                    <a [routerLink]="['/about-us']" class="btn_learn">{{ 'btn_learn_more' | translate }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section_4" *ngIf="portfolios.length > 0">
+        <div class="container">
+            <div class="text-center">
+                <h2 [innerHTML]="homeDetails.short_title"></h2>
+            </div>
+        </div>
+        <div class="portfolio_banner_holder">
+            <owl-carousel-o [options]="customOptions">
+                <ng-template carouselSlide *ngFor="let portfolio of portfolios;">
+                    <div class="slide">
+                        <div class="port_slider_inner">
+                            <img src="{{portfolio.image}}" alt="">
+                            <div class="banner_caption">
+                                <h3 [innerHTML]="portfolio.title"></h3>
+                                <div *ngIf="portfolio.roles">
+                                    <p>{{ 'label_role' | translate }}: <span [innerHTML]="portfolio.roles"></span></p>
+                                </div>
+                                <a href="{{ portfolio.site_link }}" target="_blank">{{ 'label_view_project' | translate }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </owl-carousel-o>
+        </div>
+        <div class="text-center">
+            <a [routerLink]="['/portfolio']" class="btn_learn">{{ 'label_view_portfolio' | translate }}</a>
+        </div>
+    </div>
+    
+<app-footer></app-footer>

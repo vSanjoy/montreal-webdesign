@@ -1,0 +1,44 @@
+<app-header></app-header>
+    <div class="inner_banner" [ngStyle]="{'background-image': pageDetails.banner_image ? 'url(' + pageDetails.banner_image + ')' : '' }">
+        <div class="container text-center">
+            <div class="page_breadcrumb">
+                <div class="breadcrumb">
+                    <ul>
+                        <li class="active"><a [routerLink]="['/']">{{ 'menu_home' | translate }}</a></li>
+                        <li><a>{{ pageDetails.title }}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pageTitle">
+                <h1 [innerHTML]="pageDetails.banner_title"></h1>
+            </div>
+            <div class="bannerContent">
+                <p [innerHTML]="pageDetails.banner_short_description"></p>
+            </div>
+        </div>
+    </div>
+    <div class="innerpageHolder">
+        <div class="container">
+            <div class="testimonials_box" *ngFor="let testimonial of testimonialList;">
+                <div class="testi_img">
+                    <img src="{{ testimonial.image }}" alt="">
+                </div>
+                <div class="testi_cn">
+                    <div class="quote">
+                        <img src="assets/images/quote.png" alt="">
+                    </div>
+                    <!-- <h2 [innerHTML]="testimonial.title"></h2> -->
+                    <div [innerHTML]="testimonial.description"></div>
+                    <div class="testi_footer">
+                        <div class="client_img" *ngIf="testimonial.logo">
+                            <img src="{{ testimonial.logo }}" alt="">
+                        </div>
+                        <div class="client_name">
+                            <h3>{{ testimonial.author }} <span [innerHTML]="testimonial.designation"></span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<app-footer></app-footer>

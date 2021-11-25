@@ -1,0 +1,117 @@
+<app-header></app-header>
+    <div class="inner_banner" [ngStyle]="{'background-image': pageDetails.banner_image ? 'url(' + pageDetails.banner_image + ')' : '' }">
+        <div class="container text-center">
+            <div class="page_breadcrumb">
+                <div class="breadcrumb">
+                    <ul>
+                        <li class="active"><a [routerLink]="['/']">{{ 'menu_home' | translate }}</a></li>
+                        <li><a>{{ pageDetails.title }}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pageTitle">
+                <h1 [innerHTML]="pageDetails.banner_title"></h1>
+            </div>
+            <div class="bannerContent">
+                <p [innerHTML]="pageDetails.banner_short_description"></p>
+            </div>
+        </div>
+    </div>
+    <div class="innerpageHolder">
+        <div class="container">
+            <div class="contact_holder">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="contactDetails">
+                            <h2 [innerHTML]="pageDetails.short_title"></h2>
+                            <div class="address">
+                                <p [innerHTML]="pageDetails.other_description"></p>
+                            </div>
+                            <div class="contact_phone">
+                                <div class="phone_icon">
+                                    <img src="assets/images/ph_icon_2.png" alt="">
+                                </div>
+                                <div class="phone_details">
+                                    <a href="tel:{{ websiteSettingsDetails.phone_number }}">{{ 'label_montreal' | translate }}: {{ websiteSettingsDetails.phone_no }}</a>
+                                    <a href="tel:{{ websiteSettingsDetails.toll_free_number }}">{{ 'label_toll_free' | translate }}: {{ websiteSettingsDetails.toll_free }}</a>
+                                </div>
+                            </div>
+                            <div class="mailholder">
+                                <div [innerHTML]="pageDetails.description"></div>
+                                <!-- <div class="mailbox">
+                                    <div class="mailicon">
+                                        <img src="assets/images/mail_icon.png" alt="">
+                                    </div>
+                                    <div class="mailtext">
+                                        <a href="mailto:{{ websiteSettingsDetails.from_email }}">{{ websiteSettingsDetails.from_email }}</a>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="mapHolder">
+                            <h2>{{ 'label_view_map' | translate }}</h2>
+                            <div class="mapContainer">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d357585.076521621!2d-74.01048414282262!3d45.557699585064015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cc91a541c64b70d%3A0x654e3138211fefef!2sMontreal%2C%20QC%2C%20Canada!5e0!3m2!1sen!2sin!4v1623327280980!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+                        </div>
+                        <div class="contactPageForm">
+                            <div class="quoteFormHolder">
+                                <h3>{{ 'label_send_quick_message' | translate }}</h3>
+                                <form [formGroup]="contactForm" (ngSubmit)="submitContactForm();" autocomplete="off">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label>{{ 'label_name' | translate }}</label>
+                                            <input type="text" formControlName="name" class="" placeholder="" [ngClass]="{'is-invalid': contactSubmitted && contactFormVal.name.errors}">
+                                            <div *ngIf="contactSubmitted && contactFormVal.name.errors" class="invalid-feedback">
+                                                <div *ngIf="contactFormVal.name.errors.required">
+                                                    {{ 'error_name' | translate }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label>{{ 'label_email' | translate }}</label>
+                                            <input type="text" formControlName="email" class="" placeholder="" [ngClass]="{'is-invalid': contactSubmitted && contactFormVal.email.errors}">
+                                            <div *ngIf="contactSubmitted && contactFormVal.email.errors" class="invalid-feedback">
+                                                <div *ngIf="contactFormVal.email.errors?.required; else validEmail">
+                                                    {{ 'error_email' | translate }}
+                                                </div>
+                                                <ng-template #validEmail>
+                                                    {{ 'error_email_valid' | translate }}
+                                                </ng-template>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <label>{{ 'label_message' | translate }}</label>
+                                            <textarea formControlName="message" class="" placeholder="" [ngClass]="{'is-invalid': contactSubmitted && contactFormVal.message.errors}"></textarea>
+                                            <div *ngIf="contactSubmitted && contactFormVal.message.errors" class="invalid-feedback">
+                                                <div *ngIf="contactFormVal.message.errors.required">
+                                                    {{ 'error_message' | translate }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="captchaHolder">
+                                                <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" [size]="size" [hl]="siteLanguage" [theme]="theme" formControlName="recaptcha"></ngx-recaptcha2>
+                                            </div>
+                                            <div *ngIf="contactSubmitted && contactFormVal.recaptcha.errors">
+                                                <div *ngIf="contactFormVal.recaptcha.errors.required" style="font-size: 0.875em; color: #dc3545;">
+                                                    {{ 'error_captcha' | translate }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <input type="submit" name="" value="{{ 'btn_send_email' | translate }}">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<app-footer></app-footer>

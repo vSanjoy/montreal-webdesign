@@ -1,0 +1,315 @@
+<app-header></app-header>
+
+<div class="inner_banner" style="background: url(assets/images/getaquoteBanner.jpg) no-repeat;">
+    <div class="container text-center">
+        <div class="page_breadcrumb">
+            <div class="breadcrumb">
+                <ul>
+                    <li class="active"><a [routerLink]="['/']">{{ 'menu_home' | translate }}</a></li>
+                    <li><a>{{ pageDetails.title }}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="pageTitle">
+            <h1 [innerHTML]="pageDetails.banner_title"></h1>
+        </div>
+        <div class="bannerContent">
+            <p [innerHTML]="pageDetails.banner_short_description"></p>
+        </div>
+    </div>
+</div>
+
+<div class="quoteHolder">
+    <div class="container">
+        <div class="quoteTop">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div [innerHTML]="pageDetails.description"></div>
+                </div>
+            </div>
+        </div>
+        <div class="quoteFormHolder">
+            <div class="row">
+                <div class="col-lg-10">
+                    <form [formGroup]="getAQuoteForm" (ngSubmit)="submitGetAQuoteForm();" autocomplete="off">
+                        <div class="formRow">
+                            <div class="formLabel">{{ 'label_name' | translate }}*</div>
+                            <div class="formField">
+                                <input type="text" formControlName="name" class="form-control" [ngClass]="{'is-invalid': getAQuoteSubmitted && getAQuoteFormVal.name.errors}">
+                                <div *ngIf="getAQuoteSubmitted && getAQuoteFormVal.name.errors" class="invalid-feedback">
+                                    <div *ngIf="getAQuoteFormVal.name.errors.required">
+                                        {{ 'error_name' | translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formRow">
+                            <div class="formLabel">{{ 'label_business_name' | translate }}*</div>
+                            <div class="formField">
+                                <input type="text" formControlName="business_name" class="form-control" [ngClass]="{'is-invalid': getAQuoteSubmitted && getAQuoteFormVal.business_name.errors}">
+                                <div *ngIf="getAQuoteSubmitted && getAQuoteFormVal.business_name.errors" class="invalid-feedback">
+                                    <div *ngIf="getAQuoteFormVal.business_name.errors.required">
+                                        {{ 'error_business_name' | translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formRow">
+                            <div class="formLabel">{{ 'label_how_many_employees' | translate }}*</div>
+                            <div class="formField">
+                                <input type="text" formControlName="how_many_employees" class="form-control" [ngClass]="{'is-invalid': getAQuoteSubmitted && getAQuoteFormVal.how_many_employees.errors}">
+                                <div *ngIf="getAQuoteSubmitted && getAQuoteFormVal.how_many_employees.errors" class="invalid-feedback">
+                                    <div *ngIf="getAQuoteFormVal.how_many_employees.errors.required">
+                                        {{ 'error_how_many_employees' | translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formRow">
+                            <div class="formLabel">{{ 'label_phone_number' | translate }}*</div>
+                            <div class="formField">
+                                <input type="text" formControlName="phone_number" class="form-control" [ngClass]="{'is-invalid': getAQuoteSubmitted && getAQuoteFormVal.phone_number.errors}">
+                                <div *ngIf="getAQuoteSubmitted && getAQuoteFormVal.phone_number.errors" class="invalid-feedback">
+                                    <div *ngIf="getAQuoteFormVal.phone_number.errors.required">
+                                        {{ 'error_phone_number' | translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formRow">
+                            <div class="formLabel">{{ 'label_email' | translate }}*</div>
+                            <div class="formField">
+                                <input type="email" formControlName="email" class="form-control" [ngClass]="{'is-invalid': getAQuoteSubmitted && getAQuoteFormVal.email.errors}">
+                                <div *ngIf="getAQuoteSubmitted && getAQuoteFormVal.email.errors" class="invalid-feedback">
+                                    <div *ngIf="getAQuoteFormVal.email.errors?.required; else validEmail">
+                                        {{ 'error_email' | translate }}
+                                    </div>
+                                    <ng-template #validEmail>
+                                        {{ 'error_email_valid' | translate }}
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formRow">
+                            <div class="formLabel">{{ 'label_city' | translate }}*</div>
+                            <div class="formField">
+                                <input type="text" formControlName="city" class="form-control" [ngClass]="{'is-invalid': getAQuoteSubmitted && getAQuoteFormVal.city.errors}">
+                                <div *ngIf="getAQuoteSubmitted && getAQuoteFormVal.city.errors" class="invalid-feedback">
+                                    <div *ngIf="getAQuoteFormVal.city.errors.required">
+                                        {{ 'error_city' | translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formRow">
+                            <div class="formLabel">{{ 'label_how_did_you_hear_abour_us' | translate }}*</div>
+                            <div class="formField">
+                                <select formControlName="hear_about_us" id="">
+                                    <option *ngFor="let hearAboutUs of hearAboutUsList">{{hearAboutUs}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="formRow">
+                            <div class="formLabel">{{ 'label_briefly_describe_your_website' | translate }}*</div>
+                            <div class="formField">
+                                <textarea formControlName="website_description" class="form-control" placeholder="" [ngClass]="{'is-invalid': getAQuoteSubmitted && getAQuoteFormVal.website_description.errors}"></textarea>
+                                <div *ngIf="getAQuoteSubmitted && getAQuoteFormVal.website_description.errors" class="invalid-feedback">
+                                    <div *ngIf="getAQuoteFormVal.website_description.errors.required">
+                                        {{ 'error_briefly_describe_your_website' | translate }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formServiceSection">
+                            <h3>{{ 'label_website_creation' | translate }} <span>({{ 'label_website_creation_extra' | translate }})</span></h3>
+                            <div class="formServiceSectionTable">
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_static_website' | translate }}</div>
+                                    <div class="cellInput">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" formControlName="static_website_html_non_flash" id="static_website_html_non_flash" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_dynamic_website' | translate }}</div>
+                                    <div class="cellInput">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" formControlName="dynamic_website_flash_website_animated" id="dynamic_website_flash_website_animated" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_wordPress_manage_your_own_site' | translate }}</div>
+                                    <div class="cellInput">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" formControlName="static_website_with_flash_intro" id="static_website_with_flash_intro" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formServiceSection">
+                            <h3>{{ 'label_other_services_offered' | translate }}</h3>
+                            <div class="formServiceSectionTable">
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_logo_creation' | translate}}</div>
+                                    <div class="cellInput">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" formControlName="logo_creation" id="logo_creation" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_domain_name_registration' | translate }}</div>
+                                    <div class="cellInput">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" formControlName="domain_name_registration" id="domain_name_registration" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_website_maintenance' | translate }}</div>
+                                    <div class="cellInput">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" formControlName="website_maintenance" id="website_maintenance" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_website_hosting' | translate }}</div>
+                                    <div class="cellInput">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" formControlName="website_hosting" id="website_hosting" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_search_engine' | translate }}</div>
+                                    <div class="cellInput">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" formControlName="search_engine_submission" id="search_engine_submission" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formServiceSection">
+                            <h3>{{ 'label_additional_information' | translate }}</h3>
+                            <div class="formServiceSectionTable">
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_english_language_website' | translate }}</div>
+                                    <div class="cellInput">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" formControlName="english_language_website" id="english_language_website" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_french_language_website' | translate }}</div>
+                                    <div class="cellInput">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" formControlName="french_language_website" id="french_language_website" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_bilingual_website' | translate }}</div>
+                                    <div class="cellInput">
+                                        <label class="control control-checkbox">
+                                            <input type="checkbox" formControlName="bilingual_language_website" id="bilingual_language_website" />
+                                            <div class="control_indicator"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_number_of_english_pages_to_create' | translate }}</div>
+                                    <div class="cellInput">
+                                        <input type="number" formControlName="number_of_english_pages">
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_number_of_english_graphics_to_create' | translate }}</div>
+                                    <div class="cellInput">
+                                        <input type="number" formControlName="number_of_english_graphics">
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_number_of_french_pages_to_create' | translate }}</div>
+                                    <div class="cellInput">
+                                        <input type="number" formControlName="number_of_french_pages">
+                                    </div>
+                                </div>
+                                <div class="formServiceSectionTableCell">
+                                    <div class="cellLabel">{{ 'label_number_of_french_graphics_to_create' | translate }}</div>
+                                    <div class="cellInput">
+                                        <input type="number" formControlName="number_of_french_graphics">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="targetLounchDate">
+                            <div class="formRow">
+                                <div class="formLabel">{{ 'label_target_launch_date' | translate }}</div>
+                                <div class="formField">
+                                    <div class="dateHolder">
+                                        <div class="dateCn">
+                                            <select formControlName="day">
+                                                <option *ngFor="let dayNumber of dayNumbers">{{dayNumber+1}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="monthCn">
+                                            <select formControlName="month">
+                                                <option *ngFor="let monthNumber of monthNumbers">{{monthNumber+1}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="yearCn">
+                                            <select formControlName="year">
+                                                <option *ngFor="let yearNumber of yearRange">{{yearNumber}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="formRow">
+                                <div class="formLabel">{{ 'label_budget' | translate }}:</div>
+                                <div class="formField">
+                                    <select formControlName="budget" id="budget">
+                                        <option *ngFor="let budget of budgetList">{{budget}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="formSubmitSection">
+                            <div class="captchaHolder">
+                                <h4>{{ 'label_help_us_stop_spammers' | translate }}:</h4>
+                                <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" [size]="size" [hl]="siteLanguage" [theme]="theme" formControlName="recaptcha"></ngx-recaptcha2>
+                            </div>
+                            <div *ngIf="getAQuoteSubmitted && getAQuoteFormVal.recaptcha.errors">
+                                <div *ngIf="getAQuoteFormVal.recaptcha.errors.required" style="font-size: 0.875em; color: #dc3545;">
+                                    {{ 'error_captcha' | translate }}
+                                </div>
+                            </div>
+                            <br>
+                            <div class="formButtonHolder">
+                                <input type="submit" value="{{ 'btn_send_now' | translate }}">
+                                <button type="button" (click)="resetGetAQuoteForm();">{{ 'btn_reset' | translate }}</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

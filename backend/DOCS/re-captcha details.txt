@@ -1,0 +1,5 @@
+Site Key: 6LdezDQbAAAAAFgiI8dOOh4DGabUf_GjXobPrfcS
+
+Secret Key: 6LdezDQbAAAAAEYm7R5NCB7pHtUQSB3JFHNlqxkL
+
+https://www.google.com/recaptcha/admin/site/456445022

@@ -1,0 +1,44 @@
+<app-header></app-header>
+<div class="inner_banner" [ngStyle]="{'background-image': pageDetails.banner_image ? 'url(' + pageDetails.banner_image + ')' : '' }">
+    <div class="container text-center">
+        <div class="page_breadcrumb">
+            <div class="breadcrumb">
+                <ul>
+                    <li class="active"><a [routerLink]="['/']">{{ 'menu_home' | translate }}</a></li>
+                    <li><a>{{ pageDetails.title }}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="pageTitle">
+            <h1 [innerHTML]="pageDetails.banner_title"></h1>
+        </div>
+        <div class="bannerContent">
+            <p [innerHTML]="pageDetails.banner_short_description"></p>
+        </div>
+    </div>
+</div>
+<div class="innerpageHolder">
+    <div class="container">
+        <div class="defaultPage">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="defaulPageContent">
+                        <div class="sitemap">
+                            <ul>
+                                <li><a [routerLink]="['/']">- {{ 'menu_home' | translate }}</a></li> 
+                                <li><a [routerLink]="['/services']" >- {{ 'menu_services' | translate }}</a>
+                                <li><a [routerLink]="['/portfolio']" >- {{ 'menu_portfolio' | translate }}</a></li>             
+                                <li><a [routerLink]="['/testimonials']" >- {{ 'menu_testimonials' | translate }}</a></li>             
+                                <li><a [routerLink]="['/contact']" >- {{ 'menu_contact' | translate }}</a></li>
+                                <li><a [routerLink]="['/privacy']">- {{ 'menu_privacy' | translate }}</a></li>
+                                <li><a [routerLink]="['/privacy']">- {{ 'menu_terms' | translate }}</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,100 @@
+<div id="toTop"><i class="fa fa-chevron-up" aria-hidden="true"></i></div>
+<header class="header" >
+	<div class="container">
+		<div class="header_cn">
+			<div class="logo">
+				<a [routerLink]="['/']"><img src="{{this.headerLogo}}" alt=""></a>
+			</div>
+			<div class="header_right">
+				<div class="navigation">
+
+
+					<nav class="navbar navbar-expand-lg navbar-light">
+					    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+					      <span class="navbar-toggler-icon"></span>
+					    </button>
+					    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+					      <ul class="navbar-nav">
+					        <li class="nav-item"><a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{ 'menu_home' | translate }}</a></li>
+					        <li class="sub_menu nav-item dropdown">
+								<a [routerLink]="['/services']" routerLinkActive="active">{{ 'menu_services' | translate }}</a>
+
+								<button type="button" id="navbarDropdownMenuLink" class="dropdown-toggle dropdown-toggle-split onlyMobile mobileToggleButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-angle-down" aria-hidden="true"></i></button>
+
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+									<ng-container *ngIf="currentRouterName == 'services'; then serviceBlock else serviceOtherBlock"></ng-container>
+									<ng-template #serviceBlock>
+										<li *ngFor="let service of services;">
+											<a (click)="scrollToOwnElement('service_'+service.id)" href="javascript: void(0);" [innerHTML]="service.title"></a>
+										</li>
+									</ng-template>
+									<ng-template #serviceOtherBlock>
+										<li *ngFor="let service of services;">
+											<a [routerLink]="['/services']" [queryParams]="{block: 'service_'+service.id}" [innerHTML]="service.title"></a>
+										</li>
+									</ng-template>
+								</ul>
+							</li>
+					        <li class="nav-item"><a [routerLink]="['/portfolio']" routerLinkActive="active">{{ 'menu_portfolio' | translate }}</a></li>             
+							<li class="nav-item"><a [routerLink]="['/testimonials']" routerLinkActive="active">{{ 'menu_testimonials' | translate }}</a></li>             
+							<li class="nav-item"><a [routerLink]="['/contact']" routerLinkActive="active">{{ 'menu_contact' | translate }}</a></li>             
+							<li class="nav-item">
+								<ng-container *ngIf="localstorageLanguage=='en';then english_container else french_container"></ng-container>
+								<ng-template #english_container>
+									<a (click)="switchLanguage('fr')">{{ 'menu_francias' | translate }}</a>
+								</ng-template>
+								<ng-template #french_container>
+									<a (click)="switchLanguage('en')">{{ 'menu_english' | translate }}</a>
+								</ng-template>
+							</li>
+					      </ul>
+					    </div>
+					</nav>
+
+
+
+
+
+					<!-- <nav>
+						<ul>
+							<li><a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{ 'menu_home' | translate }}</a></li>             
+							<li class="sub_menu"><a [routerLink]="['/services']" routerLinkActive="active">{{ 'menu_services' | translate }}</a>
+								<ul>
+									<ng-container *ngIf="currentRouterName == 'services'; then serviceBlock else serviceOtherBlock"></ng-container>
+									<ng-template #serviceBlock>
+										<li *ngFor="let service of services;">
+											<a (click)="scrollToOwnElement('service_'+service.id)" href="javascript: void(0);" [innerHTML]="service.title"></a>
+										</li>
+									</ng-template>
+									<ng-template #serviceOtherBlock>
+										<li *ngFor="let service of services;">
+											<a [routerLink]="['/services']" [queryParams]="{block: 'service_'+service.id}" [innerHTML]="service.title"></a>
+										</li>
+									</ng-template>
+								</ul>
+							</li>             
+							<li><a [routerLink]="['/portfolio']" routerLinkActive="active">{{ 'menu_portfolio' | translate }}</a></li>             
+							<li><a [routerLink]="['/testimonials']" routerLinkActive="active">{{ 'menu_testimonials' | translate }}</a></li>             
+							<li><a [routerLink]="['/contact']" routerLinkActive="active">{{ 'menu_contact' | translate }}</a></li>             
+							<li>
+								<ng-container *ngIf="localstorageLanguage=='en';then english_container else french_container"></ng-container>
+								<ng-template #english_container>
+									<a (click)="switchLanguage('fr')">{{ 'menu_francias' | translate }}</a>
+								</ng-template>
+								<ng-template #french_container>
+									<a (click)="switchLanguage('en')">{{ 'menu_english' | translate }}</a>
+								</ng-template>
+							</li>
+						</ul>
+					</nav> -->
+				</div>
+				<div class="get_quote">
+					<a [routerLink]="['/get-a-quote']">{{ 'btn_get_a_quote' | translate }}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="small_nav"></div>
+    <div class="clearfix"></div>
+</header>
+<div class="header_take_place"></div>

@@ -1,0 +1,57 @@
+<app-header></app-header>
+    <div class="inner_banner" [ngStyle]="{'background-image': pageDetails.banner_image ? 'url(' + pageDetails.banner_image + ')' : '' }">
+        <div class="container text-center">
+            <div class="page_breadcrumb">
+                <div class="breadcrumb">
+                    <ul>
+                        <li class="active"><a [routerLink]="['/']">{{ 'menu_home' | translate }}</a></li>
+                        <li><a [routerLink]="['/services']">{{ pageDetails.title }}</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pageTitle">
+                <h1 [innerHTML]="pageDetails.banner_title"></h1>
+            </div>
+            <div class="bannerContent">
+                <p [innerHTML]="pageDetails.banner_short_description"></p>
+            </div>
+        </div>
+    </div>
+    <div class="innerpageHolder serviceHolderCn">
+        <div class="container">
+            <div class="serviceHolder">
+                <div class="serviceRepeater" *ngFor="let item of serviceList; let i = index;" id="service_{{item.id}}">
+                    <div class="row">
+                        <ng-container *ngIf="i % 2 == 0; then rightBlockImage else leftBlockImage"></ng-container>
+                        <ng-template #rightBlockImage>
+                            <div class="col-lg-6 order-lg-2">
+                                <div class="serviceImage">
+                                    <img src="{{ item.service_image }}" alt="{{ item.title }}">
+                                </div>
+                            </div>
+                        </ng-template>
+                        <ng-template #leftBlockImage>
+                            <div class="col-lg-6">
+                                <div class="serviceImage">
+                                    <img src="{{ item.service_image }}" alt="{{ item.title }}">
+                                </div>
+                            </div>
+                        </ng-template>
+                        
+                        <div class="col-lg-6">
+                            <div class="serviceTextHolder">
+                                <div class="serviceIcon">
+                                    <img src="{{ item.image }}" alt="">
+                                </div>
+                                <div class="serviceTitle">
+                                    <h2 [innerHTML]="item.list_page_title"></h2>
+                                </div>
+                                <div class="serviceText" [innerHTML]="item.description"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<app-footer></app-footer>
