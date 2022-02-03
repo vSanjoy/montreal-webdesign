@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
 
-  api_url: 'https://www.montrealwebdesign.com/secure/api/v1',
-  image_url: 'https://www.montrealwebdesign.com/secure/images/uploads/',
+  api_url: 'https://www.montrealwebdesign.com/api/v1',
+  image_url: 'https://www.montrealwebdesign.com/images/uploads/',
   
-  site_url: 'https://www.montrealwebdesign.com/secure/api/v1',
+  site_url: 'https://www.montrealwebdesign.com/api/v1',
 };
 
 /*
